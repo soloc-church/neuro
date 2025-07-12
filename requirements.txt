@@ -1,0 +1,24 @@
+# Fundamental scientific libraries
+numpy>=1.23.0
+scipy>=1.9.0
+pandas>=1.5.0
+matplotlib
+seaborn
+numba
+
+# Graph/network utilities
+networkx>=3.0
+
+# Machine‑learning / decomposition
+scikit-learn>=1.1.0
+
+# Progress bars & serialization
+tqdm>=4.64.0
+joblib>=1.2.0
+
+# Quantum‐computing (for QAOA runners & transpilers)
+qiskit>=0.40.0
+#qbraid_qiskit_provider
+
+# Testing
+pytest>=8.0.0
