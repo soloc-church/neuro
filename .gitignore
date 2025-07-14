@@ -1,35 +1,56 @@
-# Virtual environments
-.venv/
-venv/
-env/
-
-# Byte‑compiled / optimized files
+# Python build artifacts
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Distribution / packaging
-build/
-dist/
-*.egg-info/
+# C/C++/Cython extensions
+*.so
+*.pyd
+*.dll
 
-# Unit test / coverage reports
-htmlcov/
+# Virtual environments
+.venv*/
+venv*/
+env*/
+ENV*/
+*.venv/
+
+# Test and coverage outputs
+.pytest_cache/
 .coverage
-.coverage.*
-.cache
+htmlcov/
 
-# IDE/editor settings
+# Editor & IDE settings
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
 
-# Environment variables
-.env
-.env.*
+# Jupyter
+.ipynb_checkpoints/
 
-# Your data folder
-data/
+# Data, cache, and other large or generated assets
+/data/
+/cache/
+/fresh/
+/make/
+/a/
+/#/
 
-# OS files
+# Compressed archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.bz2
+*.7z
+
+# Build / packaging
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Operating‑system files
 .DS_Store
 Thumbs.db

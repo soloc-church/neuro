@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuro-qaoa"
+version = "0.0.1"
+description = "QAOA + analysis"
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+    # core scientific stack
+    "numpy>=1.23.0",
+    "scipy>=1.9.0",
+    "pandas>=1.5.0",
+    "matplotlib",
+    "seaborn",
+    "numba",
+
+    # graphs & ML
+    "networkx>=3.0",
+    "scikit-learn>=1.1.0",
+
+    # utilities
+    "tqdm>=4.64.0",
+    "joblib>=1.2.0",
+
+    # quantum / qbraid
+    "qiskit>=1.4,<2.0",
+    "qbraid[ionq]>=0.9",
+    "qiskit-aer>=0.13,<0.18",
+    "qiskit-ionq>=0.5,<0.6",
+    "qiskit-algorithms>=0.3,<0.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "jupyter",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = ["features"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -16,8 +16,6 @@ scikit-learn>=1.1.0
 tqdm>=4.64.0
 joblib>=1.2.0
 
-# Quantum‐computing (for QAOA runners & transpilers)
-qiskit>=0.40.0
 #qbraid_qiskit_provider
 
 # Testing
