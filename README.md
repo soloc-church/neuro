@@ -35,27 +35,6 @@
 
 A small, professional aesthetic is applied throughout (matte neutrals with a restrained indigo/teal accent) to keep focus on the science while signaling modern engineering craft.
 
----
-
-## Architecture
-
-```mermaid
-flowchart LR
-    A[Neural Time‑Series] --> B[Preprocessing\n(binning • filtering)]
-    B --> C[Feature Maps\n(co‑activation • windows)]
-    C --> D[Hamiltonian Builder\nIsing/QUBO\n2/3‑local + k‑hot]
-    D --> E{Solver}
-    E --> E1[QAOA\n(qBraid/AWS, IonQ)]
-    E --> E2[Classical Baselines]
-    E1 --> F[Readout Correction]
-    E2 --> F
-    F --> G[Reporting\n(metrics • figs • tables)]
-```
-
-> **Design note**: modules remain small and orthogonal. Builders produce serializable Hamiltonians; solvers consume them interchangeably.
-
----
-
 ## Examples
 
 ### Minimal Python sketch
@@ -66,17 +45,17 @@ from neuro.hamiltonian import IsingBuilder, constraints
 from neuro.solvers import QAOASolver, SimulatedAnnealing
 from neuro.reporting import BenchmarkReport
 
-# 1) Load neural time‑series (CSV/Parquet/NumPy)
+# Load neural time‑series (CSV/Parquet/NumPy)
 ts = load_timeseries("data/spikes.parquet", rate_hz=1000)
 
-# 2) Build Ising with 3‑local terms and k‑hot constraint (k=5)
+# Build Ising with 3‑local terms and k‑hot constraint (k=5)
 H = (IsingBuilder()
      .from_timeseries(ts, window_ms=50, coactivation="pearson")
      .add_local_terms(order=3)
      .add_constraint(constraints.k_hot(k=5, weight=3.0))
      .finalize())
 
-# 3a) QAOA on hardware/simulator with readout correction
+# QAOA on hardware/simulator with readout correction
 aq = QAOASolver(p=2, optimizer="cobyla", shots=2000, readout_correction=True)
 res_q = aq.solve(H, backend="qbraid:aws:sv1")  # or ionq:ideal / local backends
 
@@ -84,23 +63,16 @@ res_q = aq.solve(H, backend="qbraid:aws:sv1")  # or ionq:ideal / local backends
 sa = SimulatedAnnealing(steps=50000, schedule="geometric")
 res_c = sa.solve(H)
 
-# 4) Report
+# Report
 BenchmarkReport() \
   .add("QAOA(p=2)", res_q) \
   .add("SA",        res_c) \
   .to_markdown("reports/qaoa_vs_sa.md")
 ```
 
-### CLI sketch (optional)
 
-```bash
-neuro ingest data/spikes.parquet --rate-hz 1000 --out data/ts.pkl
-neuro build  data/ts.pkl --order 3 --k-hot 5 --out data/H.json
-neuro solve  data/H.json --backend qbraid:aws:sv1 --qaoa-p 2 --shots 2000 --readout-correction
-neuro bench  data/H.json --baselines sa,tabu --out reports/
-```
 
-> **Accent highlight**: QAOA runs include **readout correction** by default when enabled; calibration artifacts are tracked alongside results.
+> QAOA runs include **readout correction** by default when enabled; calibration artifacts are tracked alongside results.
 
 ---
 
@@ -136,3 +108,4 @@ Matte palette reference (non-rendered):
 - Accent‑indigo: #4338CA
 - Accent‑teal:   #0F766E
 -->
+
